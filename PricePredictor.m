@@ -5,7 +5,8 @@
 % ASSISSTANCE IS REQUIRED TO MAKE THE PROGRAM AUTOMATICALLY ADD NEW ENTRIES TO THE DATASET AND IMPROVE ITS OWN PREDICTIONS.
 
 pkg load io
-filename = '25-02-2016-TO-23-02-2018TATASTEELALLN.csv';
+filename = '25-02-2016-TO-23-02-2018TATASTEELALLN.csv'; %Change the filename accordingly
+
 
 %Reading from the file
 c = csv2cell(filename);
@@ -74,9 +75,23 @@ num_iters = 10000;
 %plot(X(:,2), X*theta2, '-')
 %legend('Training data', 'Linear regression')
 
+%Linear regression on Opening Price to Predict Low Price
+Y3 = lowprice;
+theta3 = [0;0];
+alpha = 0.0000001;
+num_iters = 10000;
+[theta3,J3]=gradientDescent(X,Y3,theta3,alpha,num_iters);
+%Uncomment these to plot the graphs too
+plotData(X(:,2),Y3);
+hold on; 
+plot(X(:,2), X*theta3, '-')
+legend('Training data', 'Linear regression')
 
-%Calculating Estimated High Price and Close Price Respectively.
+%Calculating Estimated High Price,Close Price and Low Price Respectively.
 a=input("Enter Todays Opening Price for Tata Steel>>");
-disp("Today's Estimated High Price and Close Price Respectively are");
+disp("Todays Estimated High Price is");
 disp(theta1(1)+theta1(2)*a);
+disp("Todays Estimated Closing Price is ")
 disp(theta2(1)+theta2(2)*a);
+disp("Todays Estimated Low Price is ")
+disp(theta3(1)+theta3(2)*a);
